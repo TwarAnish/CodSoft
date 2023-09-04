@@ -15,7 +15,7 @@ Welcome to the README.md file for my successful internship at CodSoft! During my
 - **Description:** In my second task, I created a Student Report Card Generator application using Java Swing. This project aimed to simplify the process of generating and managing student report cards for educational institutions.
 
 - **Achievements:**
-    -The program allows user to enter marks and the grading algorith in the code give the grades according.
+   -The program allows user to enter marks and the grading algorithm in the code give the grades according.
 
 ## Task 3: Student Management Application (Java Swing and JDBC)
 
@@ -24,7 +24,6 @@ Welcome to the README.md file for my successful internship at CodSoft! During my
 - **Achievements:**
   - Created a comprehensive GUI for adding, editing, searching and deleting student records.
   - Established a secure and reliable database connection using JDBC.
-  - Implemented features for searching, sorting, and generating student reports.
 
 ## Conclusion
 
