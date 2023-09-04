@@ -31,6 +31,8 @@ Exit Button: Offers a convenient exit button to close the application gracefully
 ## Dependencies
 This project uses Java Swing for the graphical user interface (GUI).
 You'll also need the JAR file for MySQL connector.
+I would recommend to use IntelliJ Idea Community Edition for easier connection of JAR file.
+But feel free to use any IDE.
 
 ## Contributing
 Contributions are welcome! If you want to contribute to this project, please follow these steps:
