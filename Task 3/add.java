@@ -33,7 +33,7 @@ public class add extends JFrame {
         lastNameField = new JTextField();
         JLabel cityLabel = new JLabel("City:");
         cityField = new JTextField();
-        JLabel dobLabel = new JLabel("Date of Birth (YYYY-MM-DD):");
+        JLabel dobLabel = new JLabel("Date of Birth:");
         dobField = new JTextField();
         JLabel bloodGroupLabel = new JLabel("Blood Group:");
         bloodGroupField = new JTextField();
