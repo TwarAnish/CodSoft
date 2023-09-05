@@ -1,136 +1,205 @@
 package com.anish.codsoft5;
 
-import java.awt.Component;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-public class update extends JFrame implements ActionListener {
-    private JTextField idField;
-    private JTextField firstNameField;
-    private JTextField lastNameField;
-    private JTextField cityField;
-    private JTextField dobField;
-    private JTextField bloodGroupField;
-    private JTextField contactNumberField;
-    private JButton updateButton;
+public class update extends JFrame {
+    private JTextField idField, firstNameField, lastNameField, cityField, dobField, bloodGroupField, contactNumberField;
+    private JButton fetchButton, updateButton;
     private Connection connection;
 
     public update() {
-        this.setTitle("Update Student Information");
-        this.setDefaultCloseOperation(3);
-        this.setLayout(new GridLayout(8, 2));
-        JLabel idLabel = new JLabel("Student ID:");
-        this.idField = new JTextField();
-        JLabel firstNameLabel = new JLabel("First Name:");
-        this.firstNameField = new JTextField();
-        JLabel lastNameLabel = new JLabel("Last Name:");
-        this.lastNameField = new JTextField();
-        JLabel cityLabel = new JLabel("City:");
-        this.cityField = new JTextField();
-        JLabel dobLabel = new JLabel("Date of Birth (YYYY-MM-DD):");
-        this.dobField = new JTextField();
-        JLabel bloodGroupLabel = new JLabel("Blood Group:");
-        this.bloodGroupField = new JTextField();
-        JLabel contactNumberLabel = new JLabel("Contact Number:");
-        this.contactNumberField = new JTextField();
-        this.updateButton = new JButton("Update Student");
-        this.updateButton.addActionListener(this);
-        this.add(idLabel);
-        this.add(this.idField);
-        this.add(firstNameLabel);
-        this.add(this.firstNameField);
-        this.add(lastNameLabel);
-        this.add(this.lastNameField);
-        this.add(cityLabel);
-        this.add(this.cityField);
-        this.add(dobLabel);
-        this.add(this.dobField);
-        this.add(bloodGroupLabel);
-        this.add(this.bloodGroupField);
-        this.add(contactNumberLabel);
-        this.add(this.contactNumberField);
-        this.add(this.updateButton);
-        this.pack();
-        this.setLocationRelativeTo((Component)null);
-
-        try {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/cs5";
-            String username = "root";
-            String password = "Anish@230403";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            this.connection = DriverManager.getConnection(jdbcUrl, username, password);
-        } catch (SQLException | ClassNotFoundException var11) {
-            var11.printStackTrace();
-        }
-
+        initializeUI();
+        connectToDatabase();
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.updateButton) {
-            this.updateStudentInformation();
-        }
+    private void initializeUI() {
+        setTitle("Student Management System");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.WEST; // Align components to the left
+
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // ID Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        mainPanel.add(new JLabel("ID:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        idField = new JTextField(10);
+        mainPanel.add(idField, gbc);
+
+        // First Name Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        mainPanel.add(new JLabel("First Name:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        firstNameField = new JTextField(10);
+        mainPanel.add(firstNameField, gbc);
+
+        // Last Name Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        mainPanel.add(new JLabel("Last Name:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        lastNameField = new JTextField(10);
+        mainPanel.add(lastNameField, gbc);
+
+        // City Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        mainPanel.add(new JLabel("City:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        cityField = new JTextField(10);
+        mainPanel.add(cityField, gbc);
+
+        // Date of Birth Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        mainPanel.add(new JLabel("Date of Birth:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        dobField = new JTextField(10);
+        mainPanel.add(dobField, gbc);
+
+        // Blood Group Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        mainPanel.add(new JLabel("Blood Group:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        bloodGroupField = new JTextField(10);
+        mainPanel.add(bloodGroupField, gbc);
+
+        // Contact Number Label and Field
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        mainPanel.add(new JLabel("Contact Number:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        contactNumberField = new JTextField(10);
+        mainPanel.add(contactNumberField, gbc);
+
+        // Fetch Button
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridheight = 2; // Span two rows
+        fetchButton = new JButton("Fetch");
+        mainPanel.add(fetchButton, gbc);
+
+        // Update Button
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridheight = 2; // Span two rows
+        updateButton = new JButton("Update");
+        mainPanel.add(updateButton, gbc);
+
+        fetchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                fetchStudentInformation();
+            }
+        });
+
+        updateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateStudentInformation();
+            }
+        });
+
+        add(mainPanel);
+    }
+
+    private void connectToDatabase() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/cs5";
+            String username = "root";
+            String password = "Anish@230403";
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fetchStudentInformation() {
+        int studentId = Integer.parseInt(idField.getText());
+        try {
+            String query = "SELECT * FROM students WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, studentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                firstNameField.setText(resultSet.getString("first_name"));
+                lastNameField.setText(resultSet.getString("last_name"));
+                cityField.setText(resultSet.getString("city"));
+                dobField.setText(resultSet.getString("dob"));
+                bloodGroupField.setText(resultSet.getString("blood_group"));
+                contactNumberField.setText(resultSet.getString("contact_number"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Student not found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateStudentInformation() {
-        String studentID = this.idField.getText();
-        String firstName = this.firstNameField.getText();
-        String lastName = this.lastNameField.getText();
-        String city = this.cityField.getText();
-        String dob = this.dobField.getText();
-        String bloodGroup = this.bloodGroupField.getText();
-        String contactNumber = this.contactNumberField.getText();
+        int studentId = Integer.parseInt(idField.getText());
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String city = cityField.getText();
+        String dob = dobField.getText();
+        String bloodGroup = bloodGroupField.getText();
+        String contactNumber = contactNumberField.getText();
 
         try {
-            String updateQuery = "UPDATE students SET first_name=?, last_name=?, city=?, dob=?, blood_group=?, contact_number=? WHERE id=?";
-            PreparedStatement preparedStatement = this.connection.prepareStatement(updateQuery);
+            String query = "UPDATE students SET first_name=?, last_name=?, city=?, dob=?, blood_group=?, contact_number=? WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
             preparedStatement.setString(3, city);
             preparedStatement.setString(4, dob);
             preparedStatement.setString(5, bloodGroup);
             preparedStatement.setString(6, contactNumber);
-            preparedStatement.setInt(7, Integer.parseInt(studentID));
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Student information updated successfully!");
-                this.clearFields();
+            preparedStatement.setInt(7, studentId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Student information updated successfully");
             } else {
-                JOptionPane.showMessageDialog(this, "No student with the provided ID found.");
+                JOptionPane.showMessageDialog(null, "Failed to update student information");
             }
-
-            preparedStatement.close();
-        } catch (SQLException var11) {
-            var11.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + var11.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-    }
-
-    private void clearFields() {
-        this.idField.setText("");
-        this.firstNameField.setText("");
-        this.lastNameField.setText("");
-        this.cityField.setText("");
-        this.dobField.setText("");
-        this.bloodGroupField.setText("");
-        this.contactNumberField.setText("");
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            (new update()).setVisible(true);
+            update gui = new update();
+            gui.setVisible(true);
         });
     }
 }
