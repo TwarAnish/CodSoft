@@ -28,4 +28,4 @@ This Java program is a graphical user interface (GUI) application for simulating
 
 - Anish Tangadpalliwar
 
-Enjoy using the ATM Interface Java GUI Program! If you have any questions or need assistance, please don't hesitate to contact us.
+Enjoy using the ATM Interface Java GUI Program! If you have any questions or need assistance, please don't hesitate to contact me.
