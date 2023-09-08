@@ -12,7 +12,7 @@ This Java program is a graphical user interface (GUI) application for simulating
 
 - **Check Balance**: Users can check their account balances to view their available funds.
 
-- **Add Account**: Admin or authorized users can add new accounts to the system.
+- **Add Account**: Users can add new accounts to the system.
 
 ## Technologies Used
 
