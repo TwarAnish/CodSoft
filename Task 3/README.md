@@ -12,7 +12,7 @@ This Java program is a graphical user interface (GUI) application for simulating
 
 - **Check Balance**: Users can check their account balances to view their available funds.
 
-- **Add Account**: Admin or authorized users can add new accounts to the system.
+- **Add Account**: Users can add new accounts to the system.
 
 ## Technologies Used
 
@@ -28,4 +28,4 @@ This Java program is a graphical user interface (GUI) application for simulating
 
 - Anish Tangadpalliwar
 
-Enjoy using the ATM Interface Java GUI Program! If you have any questions or need assistance, please don't hesitate to contact us.
+Enjoy using the ATM Interface Java GUI Program! If you have any questions or need assistance, please don't hesitate to contact me.
