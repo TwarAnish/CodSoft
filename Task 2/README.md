@@ -15,7 +15,8 @@ The Report Card Generator is a Java-based Graphical User Interface (GUI) program
   - 70 <= Marks < 80: "B" (Good)
   - 60 <= Marks < 70: "C" (Satisfactory)
   - 50 <= Marks < 60: "D" (Pass)
-  - Marks < 50: "F" (Fail)
+  - Marks < 50: "P" (Just Pass)
+  - Marks < 40: "F" (Fail)
 - User-friendly GUI for easy interaction.
 - Generates report card grades, total marks, and percentage instantly.
 
